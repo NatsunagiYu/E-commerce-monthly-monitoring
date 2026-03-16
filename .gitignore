@@ -1,15 +1,13 @@
-# 忽略 Python 虚拟环境
 .venv/
 
-# 忽略缓存文件
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 
-# 忽略 Jupyter Notebook checkpoint
+
 .ipynb_checkpoints/
 
-# 忽略系统文件
+
 .DS_Store
 Thumbs.db
