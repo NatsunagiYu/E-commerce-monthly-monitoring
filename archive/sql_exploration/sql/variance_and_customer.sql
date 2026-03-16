@@ -1,16 +1,3 @@
--- sql/variance_and_customer.sql
--- Purpose:
--- Align SQL exploratory queries with the final Python pipeline logic.
--- This file contains separate queries for:
--- 1) monthly KPI with MoM
--- 2) next-month retention
--- 3) customer concentration
--- 4) cohort count output
-
-------------------------------------------------------------
--- 1) Monthly KPI with MoM
--- Requires a monthly_kpi table produced from sql/kpi_metrics.sql
-------------------------------------------------------------
 WITH ordered_kpi AS (
     SELECT *
     FROM monthly_kpi
@@ -68,9 +55,6 @@ SELECT
 FROM ordered_kpi
 ORDER BY month;
 
-------------------------------------------------------------
--- 2) Next-month retention (aligned with Python retention())
-------------------------------------------------------------
 WITH cust_month AS (
     SELECT DISTINCT
         month,
@@ -130,9 +114,6 @@ LEFT JOIN repeat_counts r
   ON b.month = r.month
 ORDER BY b.month;
 
-------------------------------------------------------------
--- 3) Customer concentration (aligned with Python customer_concentration(n=10))
-------------------------------------------------------------
 WITH cust_rev AS (
     SELECT
         month,
@@ -194,9 +175,7 @@ LEFT JOIN cust_hhi h
   ON ct.month = h.month
 ORDER BY ct.month;
 
-------------------------------------------------------------
--- 4) Cohort count output (aligned with Python cohort_table())
-------------------------------------------------------------
+
 WITH customer_orders AS (
     SELECT DISTINCT
         month AS order_month,
